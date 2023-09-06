@@ -48,6 +48,12 @@ The specific release versions and download links are listed in the table below:
 | 13B | [Baichuan2-13B-Base](https://huggingface.co/baichuan-inc/Baichuan2-13B-Base) | [Baichuan2-13B-Chat](https://huggingface.co/baichuan-inc/Baichuan2-13B-Chat) | [Baichuan2-13B-Chat-4bits](https://huggingface.co/baichuan-inc/Baichuan2-13B-Chat-4bits) |
 
 # <span id="Start">快速开始/Quick Start</span>
+
+在Baichuan2系列模型中，我们为了加快推理速度使用了Pytorch2.0加入的新功能F.scaled_dot_product_attention，因此模型需要在Pytorch2.0环境下运行。
+
+In the Baichuan 2 series models, we have utilized the new feature `F.scaled_dot_product_attention` introduced in PyTorch 2.0 to accelerate inference speed. Therefore, the model needs to be run in a PyTorch 2.0 environment.
+
+
 ```python
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
