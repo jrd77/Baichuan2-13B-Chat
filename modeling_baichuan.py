@@ -181,6 +181,7 @@ class BaichuanAttention(torch.nn.Module):
             # )
             with torch.backends.cuda.sdp_kernel(enable_flash=True, enable_math=True, enable_mem_efficient=True):
                 attn_output = F.scaled_dot_product_attention(query_states, key_states, value_states, attn_mask = attention_mask)
+            attn_output = attn_output.transpose(1, 2)
         else:
             attn_weights = torch.matmul(
                 query_states, key_states.transpose(2, 3)
