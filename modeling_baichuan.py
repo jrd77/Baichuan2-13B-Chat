@@ -177,7 +177,7 @@ class BaichuanAttention(torch.nn.Module):
             key_states = key_states.transpose(1, 2)
             value_states = value_states.transpose(1, 2)
             attn_output = xops.memory_efficient_attention(
-                query_states, key_states, value_states, attn_bias=xops.LowerTriangularMask()
+                query_states, key_states, value_states, attn_bias=attention_mask.unsqueeze(0).expand(bsz, -1, -1, -1)
             )
         else:
             attn_weights = torch.matmul(
