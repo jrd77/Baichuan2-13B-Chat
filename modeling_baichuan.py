@@ -173,12 +173,14 @@ class BaichuanAttention(torch.nn.Module):
         past_key_value = (key_states, value_states) if use_cache else None
         if xops is not None and self.training:
             attn_weights = None
-            query_states = query_states.transpose(1, 2)
-            key_states = key_states.transpose(1, 2)
-            value_states = value_states.transpose(1, 2)
-            attn_output = xops.memory_efficient_attention(
-                query_states, key_states, value_states, attn_bias=attention_mask
-            )
+            # query_states = query_states.transpose(1, 2)
+            # key_states = key_states.transpose(1, 2)
+            # value_states = value_states.transpose(1, 2)
+            # attn_output = xops.memory_efficient_attention(
+            #     query_states, key_states, value_states, attn_bias=attention_mask
+            # )
+            with torch.backends.cuda.sdp_kernel(enable_flash=True, enable_math=True, enable_mem_efficient=True):
+                attn_output = F.scaled_dot_product_attention(query_states, key_states, value_states, attn_mask = attention_mask)
         else:
             attn_weights = torch.matmul(
                 query_states, key_states.transpose(2, 3)
