@@ -7,6 +7,7 @@
     "AutoConfig": "configuration_baichuan.BaichuanConfig",
     "AutoModelForCausalLM": "modeling_baichuan.BaichuanForCausalLM"
   },
+  "tokenizer_class": "BaichuanTokenizer",
   "bos_token_id": 1,
   "eos_token_id": 2,
   "gradient_checkpointing": false,
