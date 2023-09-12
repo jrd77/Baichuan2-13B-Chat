@@ -511,6 +511,7 @@ class NormHead(nn.Module):
     def forward(self, hidden_states):
         if self.training:
             norm_weight = nn.functional.normalize(self.weight)
+            self.first_flag = True
         elif self.first_flag:
             self.first_flag = False
             self.weight.data = nn.functional.normalize(self.weight)
